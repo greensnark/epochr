@@ -52,7 +52,7 @@ fn force_to_epoch_millis(epoch_sms: u128) -> u128 {
     }
 }
 
-fn current_epoch_millis() -> Result<u128, time::SystemTimeError> {
+fn current_epoch_millis() -> Result<u128> {
     Ok(time::SystemTime::now()
         .duration_since(time::UNIX_EPOCH)?
         .as_millis())
