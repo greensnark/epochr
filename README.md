@@ -15,3 +15,5 @@ $ epoch 1652400221740
 $ epoch 2022-05-13T00:03:41.740+00:00
 1652400221740
 ```
+
+`src/main.rs` is also directly runnable using [rust-script](https://crates.io/crates/rust-script)
