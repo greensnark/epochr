@@ -1,3 +1,11 @@
+#! /usr/bin/env rust-script
+
+//! ```cargo
+//! [dependencies]
+//! chrono = "0.4.0"
+//! anyhow = "1.0.57"
+//! ```
+
 use anyhow::Result;
 use std::env;
 use std::time;
