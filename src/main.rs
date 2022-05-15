@@ -3,14 +3,14 @@
 //! ```cargo
 //! [dependencies]
 //! chrono = "0.4.0"
-//! anyhow = "1.0.57"
 //! ```
 
-use anyhow::Result;
 use std::env;
+use std::error::Error;
+use std::result::Result;
 use std::time;
 
-fn main() -> Result<()> {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
         println!("{}", current_epoch_millis()?);
@@ -30,7 +30,7 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn convert_arg_epoch_rfc3339(arg: &str) -> Result<String> {
+fn convert_arg_epoch_rfc3339(arg: &str) -> Result<String, chrono::ParseError> {
     arg.parse::<u128>()
         .map(|epoch_sms| unix_to_datetime(force_to_epoch_millis(epoch_sms)).to_rfc3339())
         .or_else(|_| {
@@ -60,7 +60,7 @@ fn force_to_epoch_millis(epoch_sms: u128) -> u128 {
     }
 }
 
-fn current_epoch_millis() -> Result<u128> {
+fn current_epoch_millis() -> Result<u128, time::SystemTimeError> {
     Ok(time::SystemTime::now()
         .duration_since(time::UNIX_EPOCH)?
         .as_millis())
